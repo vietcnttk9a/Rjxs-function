@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ChiTietNhomDto, MyServiceService } from '../my-service.service';
+import { ChiTietNhomDto, MyServiceService, NhomDto } from '../my-service.service';
 import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
@@ -10,10 +10,12 @@ import { Observable } from 'rxjs';
 })
 export class Cach3Component implements OnInit {
 myData$: Observable<ChiTietNhomDto> ;
+ myData0: NhomDto ;
   constructor( private myService: MyServiceService) {}
 
   ngOnInit() {
     this.myData$ = this.myService.getNhomById().pipe(switchMap((data) =>{
+    this.myData0 = data;
       return this.myService.getChiTietByNhomId(data.id)
     }))
   }

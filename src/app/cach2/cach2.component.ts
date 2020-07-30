@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MyServiceService, ChiTietNhomDto } from '../my-service.service';
+import { MyServiceService, ChiTietNhomDto, NhomDto } from '../my-service.service';
 import { async } from '@angular/core/testing';
 
 @Component({
@@ -8,13 +8,14 @@ import { async } from '@angular/core/testing';
   styleUrls: ['./cach2.component.css']
 })
 export class Cach2Component implements OnInit {
-
+ myData0: NhomDto ;
   myData: ChiTietNhomDto ;
   constructor( private myService: MyServiceService) {}
 
   async ngOnInit() {
-    const nhom = await this.myService.getNhomById().toPromise()
-    this.myData =  await this.myService.getChiTietByNhomId(nhom.id).toPromise()
+    this.myData0 = await this.myService.getNhomById().toPromise()
+    
+    this.myData =  await this.myService.getChiTietByNhomId(this.myData0.id).toPromise()
   }
 
 }
