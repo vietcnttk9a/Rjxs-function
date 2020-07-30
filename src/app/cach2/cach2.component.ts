@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MyServiceService, ChiTietNhomDto } from '../my-service.service';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-cach2',
@@ -11,12 +12,9 @@ export class Cach2Component implements OnInit {
   myData: ChiTietNhomDto ;
   constructor( private myService: MyServiceService) {}
 
-  ngOnInit() {
-    this.myService.getNhomById().subscribe(result=>{
-      this.myService.getChiTietByNhomId(result.id).subscribe(result=>{
-        this.myData = result;
-      })
-    })
+  async ngOnInit() {
+    const nhom = await this.myService.getNhomById().toPromise()
+    this.myData =  await this.myService.getChiTietByNhomId(nhom.id).toPromise()
   }
 
 }
